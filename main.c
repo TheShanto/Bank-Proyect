@@ -1,10 +1,6 @@
 #include<conio.h>
 #include<stdio.h>
-#include<math.h>
 
 main(){
-printf("ñ");
-
-getch ()
-return 0
+  // No usar esta rama es solo para cuando el programa ya funciona
 }
