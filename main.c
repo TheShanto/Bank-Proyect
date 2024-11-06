@@ -2,10 +2,31 @@
 #include<stdio.h>
 #include<math.h>
 
-// Menú principal
+// Menú principal 
 void StartMenu(){
+  
+  // Variables del menu
+  int option = 0;
+
+  // Elementos del menu
   printf("Bienvenido al banco Ronpope\n");
-  printf("Que desea hacer?")
+  printf("Que desea hacer?\n");
+  printf("1): Crear una cuenta\n");
+  printf("2): Iniciar sesion\n");
+  scanf("%d", &option);
+
+  if(option == 1){
+    SignUpFunction();
+  } else if(option == 2){
+    LoggingMenu();
+  } else {
+    printf("Por favor ingrese una opcion valida");
+  }
+}
+
+// Menú para cuando inicia sesión
+int LoggingMenu(){
+  
 }
 
 // Funcion para crear cuentas
@@ -46,4 +67,10 @@ int LogOutFunction(){
 // Arranque del programa
 main(){
   
+  // Inicia el menu
+  StartMenu();
+
+  // Funciones por defecto
+  getch();
+  return 0;
 }
