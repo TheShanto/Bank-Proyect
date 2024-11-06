@@ -4,7 +4,8 @@
 
 // Menú principal
 void StartMenu(){
-  
+  printf("Bienvenido al banco Ronpope\n");
+  printf("Que desea hacer?")
 }
 
 // Funcion para crear cuentas
