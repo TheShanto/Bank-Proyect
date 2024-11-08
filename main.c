@@ -3,8 +3,44 @@
 #include<math.h>
 #include<stdlib.h>
 
+// Estrcutura con los valores del cliente
+struct Client{
+    char name[25];
+    char last_name[50];
+    int phone_number;
+    int card;
+    int pin;
+};
+
+// Funcion del tipo estructura para crear cuentas
+struct Client SignUpFunction(){
+
+    // Invocar al objeto Client
+    struct Client client;
+
+    // Pedir la informacion del cliente
+    printf("Bienvenido a la creacion de cuentas del banco, se le iran solicitando datos para la creacion de la cuenta\n");
+    printf("Por favor ingrese su Nombre:\n");
+    scanf("%s", &client.name);
+    system("cls");
+    printf("Ingrese sus apellidos:\n");
+    scanf("%s", &client.last_name);
+    system("cls");
+    printf("Ingrese su numero de telefono:\n");
+    scanf("%d", &client.phone_number);
+    system("cls");
+    printf("Ingrese 16 numeros para generar la tarjeta\n");
+    scanf("%d", &client.card);
+    system("cls");
+    printf("Por ultimo ingrese un NIP de 4 digitos:\n");
+    scanf("%d", &client.pin);
+
+    return client;
+}
+
 // Menú principal 
 void StartMenu(){
+
     // Variables del menu
     int option = 0;
 
@@ -16,7 +52,15 @@ void StartMenu(){
     scanf("%d", &option);
 
     if(option == 1){
-        SignUpFunction();
+        // Invocar a la clase cliente
+        struct Client client = SignUpFunction();
+
+        // Mostrar los datos del cliente para verificar
+        printf("\nRegistro completado!\n");
+        printf("Nombre: %s %s\n", client.name, client.last_name);
+        printf("Telefono: %d\n", client.phone_number);
+        printf("Tarjeta: %d\n", client.card);
+        printf("PIN: %d\n", client.pin);
     } else if(option == 2){
         LoggingMenu();
     } else {
@@ -30,26 +74,7 @@ int LoggingMenu(){
   
 }
 
-// Funcion para crear cuentas
-int SignUpFunction(){
-    // Variables de la Funcion
-    char name[25], last_name[50];
-    int phone_number, pin, card;
 
-    // Pedir la informacion del cliente
-    printf("Bienvenido a la creacion de cuentas del banco, se le iran solicitando datos para la creacion de la cuenta\n");
-    printf("Por favor ingrese su Nombre:\n");
-    scanf("%s", &name);
-    system("cls");
-    printf("Ingrese sus apellidos:\n");
-    scanf("%s", &last_name);
-    printf("Ingrese su numero de telefono:\n");
-    scanf("%s", &phone_number);
-    printf("Ingrese 16 numeros para generar la tarjeta");
-    scanf("%d", &card);
-    printf("Por ultimo ingrese un NIP de 4 digitos:\n");
-    scanf("%d", &pin);
-}
 
 // Funcion para agregar dinero a la cuenta
 int AddMoneyFunction(){
@@ -84,10 +109,10 @@ int LogOutFunction(){
 // Arranque del programa
 main(){
   
-  // Inicia el menu
-  StartMenu();
+    // Inicia el menu
+    StartMenu();
 
-  // Funciones por defecto
-  getch();
-  return 0;
+      // Funciones por defecto
+    getch();
+    return 0;
 }
