@@ -1,11 +1,50 @@
-#include<conio.h>
-#include<stdio.h>
-///
-main(){
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
 
 
+main()
+{
+	system("color b0");
+	char opcion; 
+	printf("SISTEMA BANCARIO\n"); 
+	printf("\n\t\t\ Elija una opcion:\n\t\t\ A)Regristar un nuevo cliente\n\t\t\ B)Depositar dinero a cuenta propia:\n\t\t\ C)Verificar saldo en tarjeta\n\t\t\ D)Transferir dinero a otras cuentasa\n\t\t\ E)Recargar tiempo aire\n\t\t\ F)Cambiar NIP\n\t\t\ G)Salir \n\t\t\ Seleccion:");
+    /*scanf("%d",&opcion); Variables de tipo entero
+	opcion=getchar()
+    switch(opcion)*/
+	switch (opcion=getchar()) 
+	{
+		case 'A': case 'a': system("cls"); 
+		printf(":\n"); 
+		break; 
+							
+		case 'B': case 'b': system("cls");
+		printf(" \n"); 
+		break;
+							
+		case 'C': case 'c': system("cls");
+		printf(" \n"); 
+		break;
+		
+		case 'D': case 'd': system("cls"); 
+	    printf(":\n"); 
+		break; 
+							
+		case 'E': case 'e': system("cls");
+		printf(" \n"); 
+		break;
+							
+		case 'F': case 'f': system("cls");
+		printf(" \n"); 
+		break;	
+		
+		case 'G': case 'g': system("cls");
+		printf(" \n"); 
+		break;	
+											
+		default: printf("La opcion que digito no existe.\n");
+	}
 
-
-
-
+	getch(); 
+	return 0;
 }
