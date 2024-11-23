@@ -20,16 +20,38 @@ typedef struct {
 void depositar(Client *client, float cantidad) {
     if (cantidad > 0) {
         client->balance += cantidad;
-        printf("Deposito exitoso. Nuevo saldo: $%.2f\n", client->balance);
+        printf("Depósito exitoso. Nuevo saldo: $%.2f\n", client->balance);
     } else {
-        printf("Cantidad no valida para deposito.\n");
+        printf("Cantidad no válida para depósito.\n");
+    }
+}
+
+// Función para transferir dinero
+void transferir(Client client[], int totalClients, Client *remitente, float cantidad, const char *telefonoDestinatario) {
+    if (cantidad > 0 && remitente->balance >= cantidad) {
+        // Buscar destinatario
+        int found = 0;
+        for (int i = 0; i < totalClients; i++) {
+            if (strcmp(client[i].phone, telefonoDestinatario) == 0) {
+                client[i].balance += cantidad;
+                remitente->balance -= cantidad;
+                printf("Transferencia exitosa. Nuevo saldo del remitente: $%.2f\n", remitente->balance);
+                printf("Nuevo saldo del destinatario: $%.2f\n", client[i].balance);
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            printf("Número de teléfono del destinatario no encontrado.\n");
+        }
+    } else {
+        printf("Cantidad no válida o saldo insuficiente para la transferencia.\n");
     }
 }
 
 // Menú de Registro (Completo)
 void Register(Client client[], int *totalClients) {
     int isValidPin = 0;
-    int i;
     char nip[5];
 
     if (*totalClients >= MAX_CLIENTS) {
@@ -72,8 +94,9 @@ void Register(Client client[], int *totalClients) {
 
     // Comprobación de datos
     system("cls");
-    system("color D0");
-    printf("\t\t\tCliente registrado con exito con los siguientes datos\n");
+    system("color e0");
+    printf("\t\t\t Cliente registrado con exito con los siguientes datos\n");
+    printf("\t\t\t =====================================================\n");
     printf("Nombre: %s\n", newClient.name);
     printf("Apellido: %s\n", newClient.lastName);
     printf("Telefono: %s\n", newClient.phone);
@@ -82,7 +105,7 @@ void Register(Client client[], int *totalClients) {
     printf("Balance: %.2f\n\n\n\n", newClient.balance);
 }
 
-// Menú de Inicio de Sesión (Incompleto)
+// Menú de Inicio de Sesión (Completo)
 void Login(Client client[], int totalClients) {
     // Variables para el inicio de sesión
     char phone[15];
@@ -91,7 +114,8 @@ void Login(Client client[], int totalClients) {
 
     system("cls");
     system("color 70");
-    printf("Iniciar Sesión\n");
+    printf("\t\t\t\t               Iniciar Sesion\n");
+    printf("\t\t\t\t\         =========================\n");
     // Solicitar Número de Teléfono y NIP
     printf("Numero de Telefono: ");
     scanf("%14s", phone);
@@ -107,7 +131,7 @@ void Login(Client client[], int totalClients) {
             // Mostrar el menú de opciones
             int opcion;
             system("color b0"); // cambiar el color de pantalla
-            printf("\t\t\t\tBienvenido %s %s\n", client[i].name, client[i].lastName);
+            printf("\t\t\t\t******Bienvenido %s %s\n******", client[i].name, client[i].lastName);
             printf("\t\t\t\t1. Depositar Dinero\n");
             printf("\t\t\t\t2. Verificar Saldo Actual\n");
             printf("\t\t\t\t3. Transferir Dinero\n");
@@ -125,19 +149,24 @@ void Login(Client client[], int totalClients) {
                     printf("Introduce la cantidad a depositar: ");
                     scanf("%f", &cantidad);
                     depositar(&client[i], cantidad);
-                    printf("Su saldo actual es: $%.2f\n", client[i].balance);
                     break;
 
                 case 2:
                     system("cls");
                     system("color 67");
-                    
+                    printf("Su saldo actual es: $%.2f\n", client[i].balance);
                     break;
 
                 case 3:
                     system("cls");
                     system("color 01");
-                    // Transferir dinero
+                    float cantidadTransferir;
+                    char telefonoDestinatario[15];
+                    printf("Introduce la cantidad a transferir: ");
+                    scanf("%f", &cantidadTransferir);
+                    printf("Introduce el numero de telefono del destinatario: ");
+                    scanf("%14s", telefonoDestinatario);
+                    transferir(client, totalClients, &client[i], cantidadTransferir, telefonoDestinatario);
                     break;
 
                 case 4:
@@ -159,14 +188,14 @@ void Login(Client client[], int totalClients) {
                     break;
 
                 default:
-                    printf("Opción no válida\n");
+                    printf("Opción no valida\n");
             }
             break;
         }
     }
 
     if (!found) {
-        printf("No se encontró el cliente\n");
+        printf("No se encontro el cliente\n");
     }
 }
 
@@ -178,9 +207,11 @@ int main() {
     int option;
 
     do {
-        // Menú principal
+        // Menú principal  
+		system("color f3");
+        printf("\t\t\t\tBienvenido,Que desea hacer?\n");
         printf("1. Registrar\n");
-        printf("2. Iniciar Sesión\n");
+        printf("2. Iniciar Sesion\n");
         printf("3. Salir\n");
         scanf("%d", &option);
 
@@ -194,7 +225,7 @@ int main() {
             case 3:
                 break;
             default:
-                printf("Opción no válida\n");
+                printf("Opcion no valida\n");
         }
     } while (option != 3);
 
