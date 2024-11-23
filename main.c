@@ -20,9 +20,9 @@ typedef struct {
 void depositar(Client *client, float cantidad) {
     if (cantidad > 0) {
         client->balance += cantidad;
-        printf("Depósito exitoso. Nuevo saldo: $%.2f\n", client->balance);
+        printf("Deposito exitoso. Nuevo saldo: $%.2f\n\n", client->balance);
     } else {
-        printf("Cantidad no válida para depósito.\n");
+        printf("Cantidad no valida para deposito.\n\n");
     }
 }
 
@@ -42,12 +42,28 @@ void transferir(Client client[], int totalClients, Client *remitente, float cant
             }
         }
         if (!found) {
-            printf("Numero de telefono del destinatario no encontrado.\n");
+            printf("Numero de telefono del destinatario no encontrado.\n\n");
         }
     } else {
-        printf("Cantidad no valida o saldo insuficiente para la transferencia.\n");
+        printf("Cantidad no valida o saldo insuficiente para la transferencia.\n\n");
     }
 }
+
+// Función para recargar tiempo aire
+ void recargarTiempoAire(Client *client, float cantidad)
+  { if (cantidad > 0 && client->balance >= cantidad) {
+   client->balance -= cantidad; printf("Recarga exitosa. Nuevo saldo: $%.2f\n\n", client->balance); 
+   } else { printf("Cantidad no valida o saldo insuficiente para la recarga.\n\n"); } }
+
+//cambiar nip
+void cambiarNIP(Client *client) { char nuevoNIP[5];
+ char confirmarNIP[5]; printf("Ingrese su nuevo NIP: "); 
+ scanf("%4s", nuevoNIP); printf("Confirme su nuevo NIP: ");
+  scanf("%4s", confirmarNIP);
+   if (strcmp(nuevoNIP, confirmarNIP) == 0 && strlen(nuevoNIP) == 4) { 
+   strcpy(client->nip, nuevoNIP); printf("NIP cambiado exitosamente.\n\n"); } 
+   else { printf("Error: los NIPs no coinciden o no tienen 4 digitos.\n\n"); } }
+
 
 // Menú de Registro (Completo)
 void Register(Client client[], int *totalClients) {
@@ -55,7 +71,7 @@ void Register(Client client[], int *totalClients) {
     char nip[5];
 
     if (*totalClients >= MAX_CLIENTS) {
-        printf("No se pueden registrar más clientes\n");
+        printf("No se pueden registrar mas clientes\n");
         return;
     }
 
@@ -94,7 +110,7 @@ void Register(Client client[], int *totalClients) {
 
     // Comprobación de datos
     system("cls");
-    system("color e0");
+    system("color f3");
     printf("\t\t\t Cliente registrado con exito con los siguientes datos\n");
     printf("\t\t\t =====================================================\n");
     printf("Nombre: %s\n", newClient.name);
@@ -129,71 +145,73 @@ void Login(Client client[], int totalClients) {
             found = 1;
 
             // Mostrar el menú de opciones
-            int opcion;
-            system("color b0"); // cambiar el color de pantalla
-            printf("\t\t\t\t******Bienvenido %s %s******\n", client[i].name, client[i].lastName);
-            printf("\t\t\t\t1. Depositar Dinero\n");
-            printf("\t\t\t\t2. Verificar Saldo Actual\n");
-            printf("\t\t\t\t3. Transferir Dinero\n");
-            printf("\t\t\t\t4. Recargar Tiempo Aire\n");
-            printf("\t\t\t\t5. Cambiar NIP\n");
-            printf("\t\t\t\t6. Salir\n");
+            int opcion;   do {
+            system("color e0"); // cambiar el color de pantalla
+            printf("\t\t\t\t     ******Bienvenido %s %s******\n\n", client[i].name, client[i].lastName);
+            printf("\t\t\t\t         1. Depositar Dinero\n\n");
+            printf("\t\t\t\t         2. Verificar Saldo Actual\n\n");
+            printf("\t\t\t\t         3. Transferir Dinero\n\n");
+            printf("\t\t\t\t         4. Recargar Tiempo Aire\n\n");
+            printf("\t\t\t\t         5. Cambiar NIP\n\n");
+            printf("\t\t\t\t         6. Salir\n");
+//funciones completas
+             scanf("%d", &opcion);
+                switch (opcion) {
+                    case 1:
+                        system("cls");
+                        system("color 71");
+                        float cantidad;
+                        printf("Introduce la cantidad a depositar: ");
+                        scanf("%f", &cantidad);
+                        depositar(&client[i], cantidad);
+                        break;
 
-            // Seleccionar una opcion
-            scanf("%d", &opcion);
-            switch (opcion) {
-                case 1:
-                    system("cls");
-                    system("color 20");
-                    float cantidad;
-                    printf("Introduce la cantidad a depositar: ");
-                    scanf("%f", &cantidad);
-                    depositar(&client[i], cantidad);
-                    break;
+                    case 2:
+                        system("cls");
+                        system("color 67");
+                        printf("Su saldo actual es: $%.2f\n\n", client[i].balance);
+                        break;
 
-                case 2:
-                    system("cls");
-                    system("color 67");
-                    printf("Su saldo actual es: $%.2f\n", client[i].balance);
-                    break;
+                    case 3:
+                        system("cls");
+                        system("color f1");
+                        float cantidadTransferir;
+                        char telefonoDestinatario[15];
+                        printf("Introduce la cantidad a transferir: ");
+                        scanf("%f", &cantidadTransferir);
+                        printf("Introduce el numero de telefono del destinatario: ");
+                        scanf("%14s", telefonoDestinatario);
+                        transferir(client, totalClients, &client[i], cantidadTransferir, telefonoDestinatario);
+                        break;
 
-                case 3:
-                    system("cls");
-                    system("color 01");
-                    float cantidadTransferir;
-                    char telefonoDestinatario[15];
-                    printf("Introduce la cantidad a transferir: ");
-                    scanf("%f", &cantidadTransferir);
-                    printf("Introduce el numero de telefono del destinatario: ");
-                    scanf("%14s", telefonoDestinatario);
-                    transferir(client, totalClients, &client[i], cantidadTransferir, telefonoDestinatario);
-                    break;
+                    case 4:
+                        system("cls");
+                        system("color b0");
+                        float cantidadRecarga;
+                        printf("Introduce la cantidad a recargar: ");
+                        scanf("%f", &cantidadRecarga);
+                        recargarTiempoAire(&client[i], cantidadRecarga);
+                        break;
 
-                case 4:
-                    system("cls");
-                    system("color 10");
-                    // Recargar tiempo aire
-                    break;
+                    case 5:
+                        system("cls");
+                        system("color a1");
+                        cambiarNIP(&client[i]);
+                        break;
 
-                case 5:
-                    system("cls");
-                    system("color 01");
-                    // Cambiar NIP
-                    break;
+                    case 6:
+                        system("cls");
+                        system("color 90");
+                         printf("Gracias por usar nuestro servicio.Hasta luego!\n\n");
+                        break;
 
-                case 6:
-                    system("cls");
-                    system("color 10");
-                    // Salir
-                    break;
-
-                default:
-                    printf("Opción no valida\n");
-            }
+                    default:
+                        printf("Opción no válida\n");
+                }
+            } while (opcion != 6);
             break;
         }
     }
-
     if (!found) {
         printf("No se encontro el cliente\n");
     }
@@ -209,10 +227,10 @@ int main() {
     do {
         // Menú principal  
 		system("color f3");
-        printf("\t\t\t\tBienvenido Que desea hacer?\n");
-        printf("1. Registrar\n");
-        printf("2. Iniciar Sesion\n");
-        printf("3. Salir\n");
+        printf("\t\t\t\t       Bienvenido, Por favor elija una opcion.\n\n");
+        printf("                                               1. Registrar\n\n" );
+        printf("                                               2. Iniciar Sesion\n\n");
+        printf("                                               3. Salir\n");
         scanf("%d", &option);
 
         switch (option) {
