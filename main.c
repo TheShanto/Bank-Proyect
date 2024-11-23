@@ -30,7 +30,7 @@ void Register(Client client[], int *totalClients){
 
 	Client newClient;
 	// Solicitar datos del cliente
-	printf("Nombre: ");
+	printf("Nombre:");
 	scanf("%49s", newClient.name);
 	printf("Apellido: ");
 	scanf("%49s", newClient.lastName);
@@ -66,8 +66,8 @@ void Register(Client client[], int *totalClients){
 	*totalClients += 1;
 
 	// Comprobacion de datos
-	system("cls");
-	printf("Cliente registrado con exito con los siguientes datos\n");
+	system("cls"); system ("color D0");
+	printf("\t\t\t\Cliente registrado con exito con los siguientes datos\n");
 	printf("Nombre: %s\n", newClient.name);
 	printf("Apellido: %s\n", newClient.lastName);
 	printf("Telefono: %s\n", newClient.phone);
@@ -84,7 +84,7 @@ void Login(Client client[], int	totalClients){
 	char nip[5];
 	int i, found;
 
-	system("cls");
+	system("cls");  system ("color 70");
 	printf("Iniciar Sesion\n");
 	// Solicitar Numero de Telefono y NIP
 	printf("Numero de Telefono: ");
@@ -98,40 +98,58 @@ void Login(Client client[], int	totalClients){
 			// Valor para indicar que el cliente fue encontrado
 			found = 1;
 
-			// Mostrar el menu de opciones
-			printf("Bienvenido %s %s\n", client[i].name, client[i].lastName);
-			printf("1. Depositar Dinero\n");
-			printf("2. Verificar Saldo Actual\n");
-			printf("3. Transferir Dinero\n");
-			printf("4. Recargar Tiempo Aire\n");
-			printf("5. Cambiar NIP\n");
-			printf("6. Salir\n");
+			// Mostrar el menu de opciones 
+		
+			char opcion;
+			system("color b0"); //cabiar el color de pantalla
+			printf("\t\t\t\t\Bienvenido %s %s\n", client[i].name, client[i].lastName);
+			printf("\t\t\t\t\ 1.Depositar Dinero\n");
+			printf("\t\t\t\t\ 2.Verificar Saldo Actual\n");
+			printf("\t\t\t\t\ 3.Transferir Dinero\n");
+			printf("\t\t\t\t\ 4.Recargar Tiempo Aire\n");
+			printf("\t\t\t\t\ 5.Cambiar NIP\n");
+			printf("\t\t\t\t\ 6.Salir\n");
 
 			// Seleccionar una opcion
-			int option;
-			scanf("%d", &option);
-			switch(option){
-				// Falta implementar las opciones
-				case 1:
-					// Depositar dinero
-					break;
-				case 2:
-					// Verificar saldo
-					break;
-				case 3:
-					// Transferir dinero
-					break;
-				case 4:
-					// Recargar tiempo aire
-					break;
-				case 5:
-					// Cambiar NIP
-					break;
-				case 6:
-					// Salir
-					break;
+	scanf("%d",&opcion);
+    switch(opcion)
+	 {
+	// Falta implementar las opciones
+		   case 1: system("cls"); system ("color 20"); 
+		void depositar(int* cuenta_saldo, int cantidad) {
+         if (cantidad > 0) {
+         cuenta_saldo += cantidad;
+        printf("Depósito exitoso. Nuevo saldo: $%d\n", *cuenta_saldo);} 
+		else {
+        printf("Cantidad no válida para depósito.\n");
+    }
+} 
+
+			break; 
+							
+	 case 2:  system("cls"); system ("color 67");
+	 
+	// Verificar saldo
+							break;
+							
+		case 3:  system("cls"); system ("color 01");
+		  	
+								// Transferir dinero 
+						
+							break;
+		case 4:  case 'd': system("cls"); system ("color 10");
+						// Recargar tiempo aire
+							break;
+		case 5:  system("cls"); system ("color 01");
+		  	
+							// Cambiar NIP
+						
+							break;
+		case 6: system("cls"); system ("color 10");
+						// Salir
+							break;				
 				default:
-					printf("Opcion no valida\n");
+				printf("Opcion no valida\n");
 			}
 			break;
 		} 
