@@ -42,10 +42,10 @@ void transferir(Client client[], int totalClients, Client *remitente, float cant
             }
         }
         if (!found) {
-            printf("Número de teléfono del destinatario no encontrado.\n");
+            printf("Numero de telefono del destinatario no encontrado.\n");
         }
     } else {
-        printf("Cantidad no válida o saldo insuficiente para la transferencia.\n");
+        printf("Cantidad no valida o saldo insuficiente para la transferencia.\n");
     }
 }
 
@@ -131,7 +131,7 @@ void Login(Client client[], int totalClients) {
             // Mostrar el menú de opciones
             int opcion;
             system("color b0"); // cambiar el color de pantalla
-            printf("\t\t\t\t******Bienvenido %s %s\n******", client[i].name, client[i].lastName);
+            printf("\t\t\t\t******Bienvenido %s %s******\n", client[i].name, client[i].lastName);
             printf("\t\t\t\t1. Depositar Dinero\n");
             printf("\t\t\t\t2. Verificar Saldo Actual\n");
             printf("\t\t\t\t3. Transferir Dinero\n");
@@ -139,7 +139,7 @@ void Login(Client client[], int totalClients) {
             printf("\t\t\t\t5. Cambiar NIP\n");
             printf("\t\t\t\t6. Salir\n");
 
-            // Seleccionar una opción
+            // Seleccionar una opcion
             scanf("%d", &opcion);
             switch (opcion) {
                 case 1:
@@ -209,7 +209,7 @@ int main() {
     do {
         // Menú principal  
 		system("color f3");
-        printf("\t\t\t\tBienvenido,Que desea hacer?\n");
+        printf("\t\t\t\tBienvenido Que desea hacer?\n");
         printf("1. Registrar\n");
         printf("2. Iniciar Sesion\n");
         printf("3. Salir\n");
