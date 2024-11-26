@@ -78,7 +78,6 @@ void Register(Client client[], int *totalClients) {
 	Client newClient;
 	getchar(); // Elimina el buffer residual para evitar duplicados a usar fgets
 
-    Client newClient;
     // Solicitar datos del cliente
     printf("Nombre(s): ");
     fgets(newClient.name, sizeof(newClient.name), stdin);
