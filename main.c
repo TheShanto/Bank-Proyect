@@ -31,7 +31,8 @@ void transferir(Client client[], int totalClients, Client *remitente, float cant
     if (cantidad > 0 && remitente->balance >= cantidad) {
         // Buscar destinatario
         int found = 0;
-        for (int i = 0; i < totalClients; i++) {
+	    int i;
+        for (i = 0; i < totalClients; i++) {
             if (strcmp(client[i].phone, telefonoDestinatario) == 0) {
                 client[i].balance += cantidad;
                 remitente->balance -= cantidad;
