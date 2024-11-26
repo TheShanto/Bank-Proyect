@@ -74,13 +74,17 @@ void Register(Client client[], int *totalClients) {
         printf("No se pueden registrar mas clientes\n");
         return;
     }
+	Client newClient;
+	getchar(); // Elimina el buffer residual para evitar duplicados a usar fgets
 
     Client newClient;
     // Solicitar datos del cliente
-    printf("Nombre: ");
-    scanf("%49s", newClient.name);
-    printf("Apellido: ");
-    scanf("%49s", newClient.lastName);
+    printf("Nombre(s): ");
+    fgets(newClient.name, sizeof(newClient.name), stdin);
+	newClient.name[strcspn(newClient.name, "\n")] = 0; // Elimina el buffer
+    printf("Apellido(s): ");
+    fgets(newClient.lastName, sizeof(newClient.lastName), stdin);
+	newClient.lastName[strcspn(newClient.lastName, "\n")] = 0; // Eliminar el buffer
     printf("Telefono: ");
     scanf("%14s", newClient.phone);
     printf("Numero de Tarjeta: ");
