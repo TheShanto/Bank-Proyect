@@ -108,6 +108,7 @@ void transferir(Client client[], int totalClients, Client *remitente) {
      float cantidad;
      char confirmacion;
      int opcionCompania;
+     int opcionRecarga;
      char numeroRecarga[15];
 
      do{
@@ -117,7 +118,7 @@ void transferir(Client client[], int totalClients, Client *remitente) {
 
         if (opcionCompania < 1 || opcionCompania > 3) {
             printf("Opcion invalida. Intente nuevamente.\n\n");
-            continue;
+            continue; 
         }
 
         printf("Ingrese el numero al que desea recargar: ");
@@ -127,7 +128,7 @@ void transferir(Client client[], int totalClients, Client *remitente) {
         scanf("%f", &cantidad);
 
         if (cantidad > 0 && client->balance >= cantidad) {
-            printf("¿Esta seguro que desea recargar $%.2f al numero %s? (s/n): ", cantidad, numeroRecarga);
+            printf("�Esta seguro que desea recargar $%.2f al numero %s? (s/n): ", cantidad, numeroRecarga);
             scanf(" %c", &confirmacion);
             confirmacion = tolower(confirmacion);
 
@@ -180,7 +181,9 @@ void cambiarNIP(Client *client) {
 // Menu de Registro (Completo)
 void Register(Client client[], int *totalClients) {
     int isValidPin = 0;
-    char nip[5];
+    int isValidCard = 0;
+    int isValidPhone = 0;
+    char nip[5], cardNumber[17], phone[11];
 
     if (*totalClients >= MAX_CLIENTS) {
         printf("No se pueden registrar mas clientes\n");
@@ -198,10 +201,36 @@ void Register(Client client[], int *totalClients) {
     printf("Apellido(s): ");
     fgets(newClient.lastName, sizeof(newClient.lastName), stdin);
 	newClient.lastName[strcspn(newClient.lastName, "\n")] = 0; // Eliminar el buffer
-    printf("Telefono: ");
-    scanf("%14s", newClient.phone);
-    printf("Numero de Tarjeta: ");
-    scanf("%16s", newClient.cardNumber);
+
+    // Validar Numero de Telefono
+    while(!isValidPhone){
+        printf("Telefono: ");
+        scanf("%10s", phone);
+
+        if(strlen(phone) == 10){
+            isValidPhone = 1;
+        } else {
+            printf("Numero de telefono incorrecto, Debe tener 10 digitos\n");
+        }
+    }
+
+    // Guardar el telefono en el struct
+    strcpy(newClient.phone, phone);
+
+    // Validar Tarjeta
+    while(!isValidCard) {
+        printf("Numero de Tarjeta:");
+        scanf("%17s", cardNumber);
+
+        if(strlen(cardNumber) == 16) {
+            isValidCard = 1;
+        } else {
+            printf("EL numero de tarjeta es invalido, debe tener 16 digitos\n");
+        }
+    }
+
+    // Copiar la tarjeta una vez se comprueba
+    strcpy(newClient.cardNumber, cardNumber);
 
     // Validar NIP
     while (!isValidPin) {
@@ -240,7 +269,7 @@ void Register(Client client[], int *totalClients) {
 
 // Menu de Inicio de Sesion (Completo)
 void Login(Client client[], int totalClients) {
-    // Variables para el inicio de sesiÃ³n
+    // Variables para el inicio de sesion
     char phone[15];
     char nip[5];
     int i, found = 0;
@@ -261,7 +290,7 @@ void Login(Client client[], int totalClients) {
             // Valor para indicar que el cliente fue encontrado
             found = 1;
 
-            // Mostrar el menÃº de opciones
+            // Mostrar el menu de opciones
             int opcion;   do {
             system("color e0"); // cambiar el color de pantalla
             printf("\t\t\t\t     ******Bienvenido %s %s******\n\n", client[i].name, client[i].lastName);
@@ -324,10 +353,10 @@ void Login(Client client[], int totalClients) {
 }
 
 // Arranque del programa
-int main() {
+main() {
     Client clients[MAX_CLIENTS];
-    int totalClients = 0;
 
+    int totalClients = 0;
     int option;
 
     do {
