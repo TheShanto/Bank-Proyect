@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 #define MAX_CLIENTS 100
 
@@ -15,6 +16,11 @@ typedef struct {
     char nip[5];
     float balance;
 } Client;
+
+// Funciones extra
+void clearBuffer() {
+    while (getchar() != '\n');
+}
 
 // Funcion para depositar dinero
 void depositar(Client *client) {
@@ -124,6 +130,8 @@ void transferir(Client client[], int totalClients, Client *remitente) {
         printf("Ingrese el numero al que desea recargar: ");
         scanf("%14s", numeroRecarga);
 
+
+
         printf("Introduzca el monto a recargar: ");
         scanf("%f", &cantidad);
 
@@ -192,7 +200,7 @@ void Register(Client client[], int *totalClients) {
 
     // Invocar al cliente
 	Client newClient;
-	getchar(); // Elimina el buffer residual para evitar duplicados a usar fgets
+	clearBuffer(); // Elimina el buffer residual para evitar duplicados a usar fgets
 
     // Solicitar datos del cliente
     printf("Nombre(s): ");
@@ -205,7 +213,7 @@ void Register(Client client[], int *totalClients) {
     // Validar Numero de Telefono
     while(!isValidPhone){
         printf("Telefono: ");
-        scanf("%10s", phone);
+        scanf("%s", phone);
 
         if(strlen(phone) == 10){
             isValidPhone = 1;
@@ -220,7 +228,7 @@ void Register(Client client[], int *totalClients) {
     // Validar Tarjeta
     while(!isValidCard) {
         printf("Numero de Tarjeta:");
-        scanf("%17s", cardNumber);
+        scanf("%s", cardNumber);
 
         if(strlen(cardNumber) == 16) {
             isValidCard = 1;
@@ -235,7 +243,7 @@ void Register(Client client[], int *totalClients) {
     // Validar NIP
     while (!isValidPin) {
         printf("Ingrese su NIP: ");
-        scanf("%4s", nip);
+        scanf("%s", nip);
 
         if (strlen(nip) == 4) {
             isValidPin = 1;
